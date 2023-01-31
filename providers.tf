@@ -7,6 +7,6 @@ terraform {
 }
 
 provider "google" {
-  project     = "affable-skill-376404"
+  project     = "sapient-magnet-376523"
   region      = "us-west1"
 }
