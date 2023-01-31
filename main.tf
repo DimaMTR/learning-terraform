@@ -25,7 +25,7 @@
 
 resource "google_compute_instance" "test-vm" {
   name         = "test-vm"
-  machine_type = "e2-medium"
+  machine_type = var.instance_type
   zone         = "us-west1-b"
 
   tags = ["hello-world"]
