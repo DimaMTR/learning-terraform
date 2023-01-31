@@ -24,7 +24,7 @@
 # }
 
 resource "google_compute_instance" "test-vm" {
-  name         = "test-vm"
+  name         = var.instance_name
   machine_type = var.instance_type
   zone         = "us-west1-b"
 
