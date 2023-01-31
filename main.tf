@@ -23,17 +23,17 @@
 #   }
 # }
 
-resource "google_compute_instance" "default" {
+resource "google_compute_instance" "test-vm" {
   name         = "test-vm"
   machine_type = "e2-medium"
 
-  tags = ["foo", "HelloWorld"]
+  tags = ["HelloWorld"]
 
   boot_disk {
     initialize_params {
       image = "debian-cloud/debian-11"
       labels = {
-        my_label = "value"
+        os = "debian"
       }
     }
   }
