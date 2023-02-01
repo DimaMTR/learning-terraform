@@ -34,29 +34,32 @@ resource "google_compute_firewall" "nodejs-server"{
   
   network     = data.google_compute_network.default.name
 
-  rules = [
+  rules       = [
     google_compute_firewall_policy_rule.nodejs-http-in.self_link,
     google_compute_firewall_policy_rule.nodejs-http-out.self_link,
   ]
 }
 
 resource "google_compute_firewall_policy_rule" "nodejs-http-in" {
-  name = "nodejs-http-in"
   action = "ALLOW"
   direction = "INGRESS"
+  priority = 10
 
   match {
-    versioned_expr = "true"
+    layer4_config {
+      all = true
+    }
   }
 
 }
 
 resource "google_compute_firewall_policy_rule" "nodejs-http-out" {
-  name = "nodejs-http-out"
-  action = "ALLOW"
-
+  action   = "ALLOW"
+  priority = 10
   match {
-    versioned_expr = "true"
+    layer4_config {
+      all = true
+    }
   }
 
   direction = "EGRESS"
