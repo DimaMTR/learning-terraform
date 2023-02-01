@@ -38,14 +38,14 @@ resource "google_compute_firewall" "nodejs-server"{
     direction = "INGRESS"
     protocol = "tcp"
     ports = [443, 443]
-    source_ranges = [0.0.0.0/0]
+    source_ranges = ["0.0.0.0/0"]
   }
 
   allow {
     direction = "EGRESS"
     protocol = "tcp"
     ports    = ["80","80"]
-    destination_ranges -  = [0.0.0.0/0]
+    destination_ranges -  = ["0.0.0.0/0"]
   }
 }
 
