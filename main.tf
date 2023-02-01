@@ -54,7 +54,8 @@ resource "google_compute_firewall_policy_rule" "nodejs-http-in" {
 
   match {
     layer4_configs {
-      protocol = "all"
+      ip_protocol = "tcp"
+      ports = [443, 443]
       source_ip_range = "0.0.0.0/0"
     }
   }
@@ -68,8 +69,9 @@ resource "google_compute_firewall_policy_rule" "nodejs-http-out" {
   direction = "EGRESS"
   match {
     layer4_configs {
-      protocol = "all"
-      destination_ip_range = "0.0.0.0/0"
+      ip_protocol = "tcp"
+      ports = [80, 80]
+      source_ip_range = "0.0.0.0/0"
     }
   }
 }
