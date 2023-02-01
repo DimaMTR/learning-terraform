@@ -28,24 +28,31 @@ data "google_compute_network" "default" {
   name = "default"
 }
 
-resource "google_compute_firewall" "nodejs-server"{ 
-  name        = "nodejs-server"
+resource "google_compute_firewall" "http-rule-in"{ 
+  name        = "http-rule-in"
   description = "Allow to access VM from public IPs"
   
   network     = data.google_compute_network.default.name
-
+  direction = "INGRESS"
+  source_ranges = ["0.0.0.0/0"]
   allow {
-    direction = "INGRESS"
+    
     protocol = "tcp"
-    ports = [443, 443]
-    source_ranges = ["0.0.0.0/0"]
+    ports = [443, 443] 
   }
+}
 
+resource "google_compute_firewall" "http-rule-out"{ 
+  name        = "http-rule-out"
+  description = "Allow to access Anything outside"
+  
+  network     = data.google_compute_network.default.name
+  direction = "EGRESS"
+  source_ranges = ["0.0.0.0/0"]
+  destination_ranges -  = ["0.0.0.0/0"]
   allow {
-    direction = "EGRESS"
     protocol = "tcp"
     ports    = ["80","80"]
-    destination_ranges = ["0.0.0.0/0"]
   }
 }
 
