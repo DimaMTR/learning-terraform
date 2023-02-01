@@ -104,12 +104,12 @@ resource "google_compute_instance" "nodejs-server" {
     }
   }
 
-  connection {
-    type        = "ssh"
-    host        = self.network_interface.0.access_config.0.nat_ip
-    user        = "root"
-    private_key = file("~/.ssh/id_rsa")
-  }
+  # connection {
+  #   type        = "ssh"
+  #   host        = self.network_interface.0.access_config.0.nat_ip
+  #   user        = "root"
+  #   private_key = file("~/.ssh/id_rsa")
+  # }
 
   provisioner "remote-exec" {
     inline = [
