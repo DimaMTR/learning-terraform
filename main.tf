@@ -45,7 +45,7 @@ resource "google_compute_firewall" "nodejs-server"{
     direction = "EGRESS"
     protocol = "tcp"
     ports    = ["80","80"]
-    destination_ranges -  = ["0.0.0.0/0"]
+    destination_ranges = ["0.0.0.0/0"]
   }
 }
 
