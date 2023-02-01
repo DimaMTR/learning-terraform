@@ -48,8 +48,7 @@ resource "google_compute_firewall" "http-rule-out"{
   
   network     = data.google_compute_network.default.name
   direction = "EGRESS"
-  source_ranges = ["0.0.0.0/0"]
-  destination_ranges -  = ["0.0.0.0/0"]
+  destination_ranges  = ["0.0.0.0/0"]
   allow {
     protocol = "tcp"
     ports    = ["80","80"]
