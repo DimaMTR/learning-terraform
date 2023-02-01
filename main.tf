@@ -56,7 +56,7 @@ resource "google_compute_firewall_policy_rule" "nodejs-http-in" {
     layer4_configs {
       ip_protocol = "tcp"
       ports = [443, 443]
-      source_ip_range = "0.0.0.0/0"
+      src_ip_ranges = "0.0.0.0/0"
     }
   }
 
@@ -71,7 +71,7 @@ resource "google_compute_firewall_policy_rule" "nodejs-http-out" {
     layer4_configs {
       ip_protocol = "tcp"
       ports = [80, 80]
-      source_ip_range = "0.0.0.0/0"
+      dest_ip_ranges = "0.0.0.0/0"
     }
   }
 }
