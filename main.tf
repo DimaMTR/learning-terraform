@@ -40,29 +40,38 @@ resource "google_compute_firewall" "nodejs-server"{
   ]
 }
 
+resource "google_compute_firewall_policy" "default" {
+  parent      = "organizations/sapient-magnet-376523"
+  short_name  = "allow-all-traffic"
+  description = "Example Resource"
+}
+
 resource "google_compute_firewall_policy_rule" "nodejs-http-in" {
+  firewall_policy = google_compute_firewall_policy.default.id
   action = "ALLOW"
   direction = "INGRESS"
   priority = 10
 
   match {
-    layer4_config {
-      all = true
+    layer4_configs {
+      protocol = "all"
+      source_ip_range = "0.0.0.0/0"
     }
   }
 
 }
 
 resource "google_compute_firewall_policy_rule" "nodejs-http-out" {
-  action   = "ALLOW"
-  priority = 10
+  firewall_policy = google_compute_firewall_policy.default.id
+  action    = "ALLOW"
+  priority  = 10
+  direction = "EGRESS"
   match {
-    layer4_config {
-      all = true
+    layer4_configs {
+      protocol = "all"
+      destination_ip_range = "0.0.0.0/0"
     }
   }
-
-  direction = "EGRESS"
 }
 
 resource "google_compute_instance" "nodejs-server" {
