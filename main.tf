@@ -111,16 +111,16 @@ resource "google_compute_instance" "nodejs-server" {
   #   private_key = file("~/.ssh/id_rsa")
   # }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y nodejs",
-      "sudo apt-get install -y npm",
-      "sudo npm install -g express",
-      "echo 'const express = require(\"express\");\nconst app = express();\napp.get(\"/\", (req, res) => {\n res.send(\"Hello from Node.js!\");\n});\napp.listen(3000, () => {\n console.log(\"Node.js server is listening on port 3000\");\n});' > app.js",
-      "sudo node app.js &"
-    ]
-  }
+  #    "remote-exec" {
+  #   inline = [
+  #     "sudo apt-get update",
+  #     "sudo apt-get install -y nodejs",
+  #     "sudo apt-get install -y npm",
+  #     "sudo npm install -g express",
+  #     "echo 'const express = require(\"express\");\nconst app = express();\napp.get(\"/\", (req, res) => {\n res.send(\"Hello from Node.js!\");\n});\napp.listen(3000, () => {\n console.log(\"Node.js server is listening on port 3000\");\n});' > app.js",
+  #     "sudo node app.js &"
+  #   ]
+  # }
 
   network_interface {
     network = data.google_compute_network.default.name
