@@ -28,53 +28,62 @@ data "google_compute_network" "default" {
   name = "default"
 }
 
-resource "google_compute_firewall" "nodejs-server"{
+resource "google_compute_firewall" "nodejs-server"{ 
   name        = "nodejs-server"
   description = "Allow to access VM from public IPs"
   
   network     = data.google_compute_network.default.name
 
-  rules       = [
-    google_compute_firewall_policy_rule.nodejs-http-in.self_link,
-    google_compute_firewall_policy_rule.nodejs-http-out.self_link,
-  ]
-}
-
-resource "google_compute_firewall_policy" "default" {
-  parent      = "organizations/sapient-magnet-376523"
-  short_name  = "allow-all-traffic"
-  description = "Example Resource"
-}
-
-resource "google_compute_firewall_policy_rule" "nodejs-http-in" {
-  firewall_policy = google_compute_firewall_policy.default.id
-  action = "ALLOW"
-  direction = "INGRESS"
-  priority = 10
-
-  match {
-    layer4_configs {
-      ip_protocol = "tcp"
-      ports = [443, 443]
-      src_ip_ranges = "0.0.0.0/0"
-    }
+  allow {
+    direction = "INGRESS"
+    protocol = "tcp"
+    ports = [443, 443]
+    source_ranges = [0.0.0.0/0]
   }
 
-}
-
-resource "google_compute_firewall_policy_rule" "nodejs-http-out" {
-  firewall_policy = google_compute_firewall_policy.default.id
-  action    = "ALLOW"
-  priority  = 10
-  direction = "EGRESS"
-  match {
-    layer4_configs {
-      ip_protocol = "tcp"
-      ports = [80, 80]
-      dest_ip_ranges = "0.0.0.0/0"
-    }
+  allow {
+    direction = "EGRESS"
+    protocol = "tcp"
+    ports    = ["80","80"]
+    destination_ranges -  = [0.0.0.0/0]
   }
 }
+
+# resource "google_compute_firewall_policy" "default" {
+#   parent      = "organizations/sapient-magnet-376523"
+#   short_name  = "allow-all-traffic"
+#   description = "Example Resource"
+# }
+
+# resource "google_compute_firewall_policy_rule" "nodejs-http-in" {
+#   firewall_policy = google_compute_firewall_policy.default.id
+#   action = "ALLOW"
+#   direction = "INGRESS"
+#   priority = 10
+
+#   match {
+#     layer4_configs {
+#       ip_protocol = "tcp"
+#       ports = [443, 443]
+#     }
+#     src_ip_ranges = "0.0.0.0/0"
+#   }
+
+# }
+
+# resource "google_compute_firewall_policy_rule" "nodejs-http-out" {
+#   firewall_policy = google_compute_firewall_policy.default.id
+#   action    = "ALLOW"
+#   priority  = 10
+#   direction = "EGRESS"
+#   match {
+#     layer4_configs {
+#       ip_protocol = "tcp"
+#       ports = [80, 80]
+#     }
+#     dest_ip_ranges = "0.0.0.0/0"
+#   }
+# }
 
 resource "google_compute_instance" "nodejs-server" {
   name         = var.instance_name
