@@ -29,17 +29,18 @@ data "google_compute_network" "default" {
 }
 
 resource "google_compute_firewall" "http-rule-in"{ 
-  name        = "http-rule-in"
-  description = "Allow to access VM from public IPs"
+  name          = "http-rule-in"
+  description   = "Allow to access VM from public IPs"
   
-  network     = data.google_compute_network.default.name
-  direction = "INGRESS"
+  network       = data.google_compute_network.default.name
+  direction     = "INGRESS"
   source_ranges = ["0.0.0.0/0"]
   allow {
-    
     protocol = "tcp"
-    ports = [443, 443] 
+    ports    = [443, 443] 
   }
+
+  target_tags   = [var.network_tag]
 }
 
 resource "google_compute_firewall" "http-rule-out"{ 
@@ -53,6 +54,8 @@ resource "google_compute_firewall" "http-rule-out"{
     protocol = "tcp"
     ports    = ["80","80"]
   }
+  
+  target_tags   = [var.network_tag]
 }
 
 # resource "google_compute_firewall_policy" "default" {
@@ -96,7 +99,10 @@ resource "google_compute_instance" "nodejs-server" {
   machine_type = var.instance_type
   zone         = "us-west1-b"
 
-  tags = ["hello-world"]
+  tags         = [var.network_tag]
+  labels       = {
+        vm_type = "terraform-vm"
+      }
 
   boot_disk {
     initialize_params {
