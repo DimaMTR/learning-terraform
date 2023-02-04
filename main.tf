@@ -109,9 +109,9 @@ resource "google_compute_instance" "nodejs-server" {
       image = "ubuntu-os-cloud/ubuntu-1804-lts"
     }
   }
-  access_config {
-      // Ephemeral public IP
-  }
+  # access_config {
+  #     // Ephemeral public IP
+  # }
 
   # connection {
   #   type        = "ssh"
