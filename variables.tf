@@ -8,6 +8,11 @@ variable "instance_name" {
  default     = "dummy-vm"
 }
 
+variable "project_id" {
+    description = "GCP project id"
+    default = "sapient-magnet-376523"
+
+}
 variable "network_tag" {
  description = "Network tag which will be used for targeeting farewall rules"
  default     = "terraform"
