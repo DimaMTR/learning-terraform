@@ -4,6 +4,8 @@ resource "google_compute_instance" "nodejs-server" {
   machine_type = var.instance_type
   zone         = "us-west1-b"
 
+  allow_stopping_for_update = true
+
   tags = [var.network_tag]
   
   labels = {
