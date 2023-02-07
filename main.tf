@@ -21,12 +21,12 @@ resource "google_compute_instance" "nodejs-server" {
   }
 }
 
-module "terraform-vpc" {
+module "terraform_vpc" {
     source  = "terraform-google-modules/network/google"
     version = "~> 6.0"
 
     project_id   = var.project_id
-    network_name = "terraform-vpc"
+    network_name = "terraform_vpc"
     routing_mode = "GLOBAL"
     description  = "This is a VPC created just for demonstrating abilities of terraform"
 
