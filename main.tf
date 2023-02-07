@@ -17,7 +17,7 @@ resource "google_compute_instance" "nodejs-server" {
   }
 
   network_interface {
-    network = var.terraform_vpc.network_name
+    network = module.terraform_vpc.network_name
   }
 }
 
@@ -52,7 +52,7 @@ resource "google_compute_firewall" "http-rule-in"{
   name          = "http-rule-in"
   description   = "Allow to access VM from public IPs"
   
-  network       = var.terraform_vpc.network_name
+  network       = module.terraform_vpc.network_name
   direction     = "INGRESS"
   source_ranges = ["0.0.0.0/0"]
   allow {
@@ -67,7 +67,7 @@ resource "google_compute_firewall" "http-rule-out"{
   name        = "http-rule-out"
   description = "Allow to access Anything outside"
   
-  network     = var.terraform_vpc.network_name
+  network     = module.terraform_vpc.network_name
   direction = "EGRESS"
   destination_ranges  = ["0.0.0.0/0"]
   allow {
