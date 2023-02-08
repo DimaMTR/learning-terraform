@@ -20,7 +20,6 @@ resource "google_compute_instance" "nodejs-server" {
 
   network_interface {
     network = module.terraform-vpc.network_name
-    subnetwork = module.terraform-vpc.subnets_names.terraform-vpc-subnet-01
   }
 }
 
@@ -32,6 +31,7 @@ module "terraform-vpc" {
     network_name = "terraform-vpc"
     routing_mode = "GLOBAL"
     description  = "This is a VPC created just for demonstrating abilities of terraform"
+    auto_create_subnetworks = true
 
     subnets = [
         {
