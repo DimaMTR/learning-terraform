@@ -20,6 +20,7 @@ resource "google_compute_instance" "nodejs-server" {
 
   network_interface {
     network = module.terraform-vpc.network_name
+    subnetwork = module.terraform-vpc.subnets_names.terraform-vpc-subnet-01
   }
 }
 
