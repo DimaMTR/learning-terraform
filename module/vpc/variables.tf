@@ -18,9 +18,8 @@ variable "network_tag" {
  default     = "terraform"
 }
 
-}
 variable "network_name" {
- description = "Network tag which will be used for targeeting farewall rules"
+ description = "Network name which will be created per environemnt"
  default     = "dev-terraform-vpc"
 }
 
