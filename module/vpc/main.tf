@@ -28,7 +28,7 @@ module "terraform-vpc" {
     version = "~> 6.0"
 
     project_id   = var.project_id
-    network_name = "terraform-vpc"
+    network_name = var.network_name
     routing_mode = "GLOBAL"
     description  = "This is a VPC created just for demonstrating abilities of terraform"
     auto_create_subnetworks = true
@@ -36,13 +36,13 @@ module "terraform-vpc" {
     subnets = [
         {
             subnet_name           = "terraform-vpc-subnet-01"
-            subnet_ip             = "10.10.10.0/24"
+            subnet_ip             = "{var.environment.network_prefix}10.0/24"
             subnet_region         = "us-west1"
             description           = "This is a first subnet for the terraform learning"
         },
         {
             subnet_name           = "terraform-vpc-subnet-02"
-            subnet_ip             = "10.10.20.0/24"
+            subnet_ip             = "${var.environment.network_prefix}20.0/24"
             subnet_region         = "us-west1"
             subnet_private_access = "true"
             subnet_flow_logs      = "true"
