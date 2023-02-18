@@ -33,7 +33,7 @@ variable "environment" {
 
     default = {
         name           = "dev"
-        network_prefix = "10.10."
+        network_prefix = "10.10"
     }
     
 }

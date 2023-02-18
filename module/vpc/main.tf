@@ -42,7 +42,7 @@ module "terraform-vpc" {
         },
         {
             subnet_name           = "terraform-vpc-subnet-02"
-            subnet_ip             = "${var.environment.network_prefix}20.0/24"
+            subnet_ip             = "${var.environment.network_prefix}.20.0/24"
             subnet_region         = "us-west1"
             subnet_private_access = "true"
             subnet_flow_logs      = "true"
