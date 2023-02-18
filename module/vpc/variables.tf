@@ -5,7 +5,7 @@ variable "instance_type" {
 
 variable "instance_name" {
  description = "Name of the test VM"
- default     = "dummy-vm"
+ default     = "dev-vm"
 }
 
 variable "project_id" {
@@ -16,6 +16,26 @@ variable "project_id" {
 variable "network_tag" {
  description = "Network tag which will be used for targeeting farewall rules"
  default     = "terraform"
+}
+
+}
+variable "network_name" {
+ description = "Network tag which will be used for targeeting farewall rules"
+ default     = "dev-terraform-vpc"
+}
+
+variable "environment" {
+    description = "Environment for running Terraform Scripts"
+
+    type = object ({
+        name           = string
+        network_prefix = string
+    })
+
+    default {
+        name = "dev"
+        network_prefix = "10.10."
+    }
 }
 
 
