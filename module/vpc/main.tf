@@ -52,7 +52,7 @@ module "terraform-vpc" {
 }
 
 resource "google_compute_firewall" "http-rule-in"{ 
-  name          = "http-rule-in"
+  name          = "${var.environemnt.name}-http-rule-in"
   description   = "Allow to access VM from public IPs"
   
   network       = module.terraform-vpc.network_name
@@ -67,7 +67,7 @@ resource "google_compute_firewall" "http-rule-in"{
 }
 
 resource "google_compute_firewall" "http-rule-out"{ 
-  name        = "http-rule-out"
+  name        = "${var.environemnt.name}-http-rule-out"
   description = "Allow to access Anything outside"
   
   network     = module.terraform-vpc.network_name
