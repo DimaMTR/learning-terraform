@@ -35,13 +35,13 @@ module "terraform-vpc" {
 
     subnets = [
         {
-            subnet_name           = "terraform-vpc-subnet-01"
+            subnet_name           = "${var.environment.name}-terraform-vpc-subnet-01"
             subnet_ip             = "${var.environment.network_prefix}.10.0/24"
             subnet_region         = "us-west1"
             description           = "This is a first subnet for the terraform learning"
         },
         {
-            subnet_name           = "terraform-vpc-subnet-02"
+            subnet_name           = "${var.environment.name}-terraform-vpc-subnet-02"
             subnet_ip             = "${var.environment.network_prefix}.20.0/24"
             subnet_region         = "us-west1"
             subnet_private_access = "true"
